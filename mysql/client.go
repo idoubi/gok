@@ -74,14 +74,19 @@ func InitWithName(name string) error {
 	return nil
 }
 
-// GetDB 获取数据库连接
-func GetDB(name string) *gorm.DB {
+// GetClient 获取数据库连接
+func GetClient(name string) *gorm.DB {
 	dbm := <-dbch
 	if db, ok := dbm[name]; ok {
 		return db
 	}
 
 	return nil
+}
+
+// GetDB 获取数据库连接
+func GetDB(name string) *gorm.DB {
+	return GetClient(name)
 }
 
 func dbPool() {

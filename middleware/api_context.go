@@ -1,7 +1,9 @@
 package middleware
 
 import (
+	"bytes"
 	"fmt"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/labstack/echo/v4"
@@ -33,6 +35,18 @@ func (c *ApiContext) Valid(req interface{}) error {
 	}
 
 	return nil
+}
+
+// GetReqBody: get request body
+func (c *ApiContext) GetReqBody() ([]byte, error) {
+	req := c.Request()
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		return nil, err
+	}
+	req.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+
+	return body, nil
 }
 
 // RespOk: success response

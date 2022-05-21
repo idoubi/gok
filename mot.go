@@ -1,9 +1,9 @@
 package mot
 
 import (
+	"github.com/idoubi/mot/middleware"
 	"github.com/labstack/echo/v4"
 	em "github.com/labstack/echo/v4/middleware"
-	"github.com/motdev/mot/middleware"
 )
 
 // NewEcho: new echo instance
