@@ -42,7 +42,6 @@ func InitWithName(name string) error {
 	if conf.Charset == "" {
 		conf.Charset = "utf8mb4"
 	}
-
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True&loc=Local", conf.Username, conf.Password, conf.Host, conf.Port, conf.Database, conf.Charset)
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 

@@ -16,11 +16,11 @@ func ErrorHandler(next echo.HandlerFunc) echo.HandlerFunc {
 		if err != nil {
 			if httpErr, ok := err.(*echo.HTTPError); ok {
 				if httpErr.Code == http.StatusUnauthorized || httpErr.Message == "missing or malformed jwt" {
-					return c.RespStd(-2, "unauthorized", nil)
+					return c.RespStd(-2, "unauthorized", "", nil)
 				}
 			}
 
-			return c.RespErr("system error: " + err.Error())
+			return c.RespErrWithDetail("system error", err.Error())
 		}
 
 		return nil

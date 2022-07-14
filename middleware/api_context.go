@@ -18,6 +18,7 @@ type ApiContext struct {
 type resp struct {
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
+	Detail  string      `json:"detail,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }
 
@@ -51,22 +52,27 @@ func (c *ApiContext) GetReqBody() ([]byte, error) {
 
 // RespOk: success response
 func (c *ApiContext) RespOk(msg string) error {
-	return c.RespStd(0, msg, nil)
+	return c.RespStd(0, msg, "", nil)
 }
 
 // RespOkWithData: success response with data
 func (c *ApiContext) RespOkWithData(msg string, data interface{}) error {
-	return c.RespStd(0, msg, data)
+	return c.RespStd(0, msg, "", data)
 }
 
 // RespErr: fail response
 func (c *ApiContext) RespErr(msg string) error {
-	return c.RespStd(-1, msg, nil)
+	return c.RespStd(-1, msg, "", nil)
+}
+
+// RespErrWithDetail: fail response
+func (c *ApiContext) RespErrWithDetail(msg, detail string) error {
+	return c.RespStd(-1, msg, detail, nil)
 }
 
 // RespStd: standard response
-func (c *ApiContext) RespStd(code int, msg string, data interface{}) error {
-	return c.JSON(http.StatusOK, resp{code, msg, data})
+func (c *ApiContext) RespStd(code int, msg string, detail string, data interface{}) error {
+	return c.JSON(http.StatusOK, resp{code, msg, detail, data})
 }
 
 // ApiContextWithConfig: custom context middleware
