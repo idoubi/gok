@@ -1,13 +1,13 @@
-package mot
+package echo
 
 import (
-	"github.com/idoubi/mot/middleware"
+	"github.com/idoubi/gok/echo/middleware"
 	"github.com/labstack/echo/v4"
 	em "github.com/labstack/echo/v4/middleware"
 )
 
-// NewEcho: new echo instance
-func NewEcho() *echo.Echo {
+// New: new echo instance with common use middlewares
+func New() *echo.Echo {
 	e := echo.New()
 	e.Validator = middleware.NewValidator()
 	e.Use(em.Logger())
