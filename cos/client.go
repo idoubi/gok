@@ -65,7 +65,7 @@ func New(name string) (*Client, error) {
 
 func (c *Client) UploadImage(filename string, r io.Reader) (*Response, error) {
 	if filename == "" {
-		filename = goutils.TimeOrderid() + ".jpeg"
+		filename = goutils.TimeSeq() + ".jpeg"
 	}
 
 	if c.conf.Dir != "" {
